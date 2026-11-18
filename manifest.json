@@ -1,6 +1,6 @@
 {
-  "name": "ことばテスト",
-  "short_name": "ことばテスト",
+  "name": "あやせスタディ",
+  "short_name": "あやせスタディ",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f6fa",
