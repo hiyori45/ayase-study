@@ -143,7 +143,7 @@ function saveEditor(){
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function startQuiz(id){
  currentSet=tests.find(t=>t.id===id);if(!currentSet)return;
- lastSetId=id;quizQuestions=shuffle(currentSet.questions).slice(0,10);quizIndex=0;show('quiz');drawQuestion();
+ lastSetId=id;quizQuestions=shuffle(currentSet.questions).slice(0,10);quizIndex=0;show('quiz');requestAnimationFrame(()=>{resizeCanvas();drawQuestion()});
 }
 function drawQuestion(){
  const q=quizQuestions[quizIndex];$('quizTitle').textContent=currentSet.name;$('quizCount').textContent=(quizIndex+1)+' / 10問';$('progressBar').style.width=((quizIndex)/10*100)+'%';$('prompt').textContent=q[0];$('answerText').textContent=q[1];$('answerArea').classList.add('hidden');$('nextBtn').textContent=quizIndex===9?'終了':'次の問題';clearCanvas();
