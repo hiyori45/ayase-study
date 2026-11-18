@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f7fb">
 <link rel="manifest" href="manifest.json">
-<title>ことばテスト</title>
+<title>あやせスタディ</title>
 <style>
 :root{--ink:#202435;--muted:#73798a;--line:#e4e6ed;--paper:#fff;--bg:#f5f6fa;--accent:#5267d8;--soft:#edf0ff}
 *{box-sizing:border-box}
@@ -46,7 +46,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </style>
 </head>
 <body>
-<header><h1>ことばテスト</h1><button class="secondary" id="homeBtn">テスト一覧</button></header>
+<header><h1>あやせスタディ</h1><button class="secondary" id="homeBtn">テスト一覧</button></header>
 <main>
 <section id="home">
   <div class="panel">
@@ -60,7 +60,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <section id="editor" class="hidden">
   <div class="panel stack">
     <h2 id="editorHeading">テストを作る</h2>
-    <div><label for="testName">テスト名</label><input id="testName" maxlength="40" placeholder="例：基本のことば"></div>
+    <div><label for="testName">テスト名</label><input id="testName" maxlength="40" placeholder="例：たし算、カタカナ、九九"></div>
     <div class="row between"><h3>問題と答え</h3><span class="muted" id="questionCount"></span></div>
     <div id="questionEditor" class="stack"></div>
     <button class="secondary" id="addQuestionBtn">＋ 問題を追加</button>
@@ -72,7 +72,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
   <div class="panel">
     <div class="row between"><strong id="quizTitle"></strong><span id="quizCount" class="muted"></span></div>
     <div class="progress"><div id="progressBar"></div></div>
-    <div class="muted" style="text-align:center">このことばをカタカナで書こう</div>
+    <div class="muted" style="text-align:center">問題の答えを書こう</div>
     <div id="prompt" class="prompt"></div>
     <canvas id="writing"></canvas>
     <div class="row between" style="margin-top:10px">
@@ -99,12 +99,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
   </div>
 </section>
 </main>
-<footer>ことばテスト · 端末内保存</footer>
+<footer>あやせスタディ · 端末内保存</footer>
 <script>
-const KEY='kotoba-tests-v1';
+const KEY='ayase-study-tests-v1';
 const sample=[
- {id:'sample-basic',name:'基本のことば',questions:[['ねこ','ネコ'],['いぬ','イヌ'],['さかな','サカナ'],['ばす','バス'],['とまと','トマト'],['すいか','スイカ'],['かめ','カメ'],['うさぎ','ウサギ'],['くるま','クルマ'],['らっぱ','ラッパ'],['りんご','リンゴ'],['ぱん','パン']]},
- {id:'sample-voiced',name:'濁音・半濁音',questions:[['がらす','ガラス'],['ぱんだ','パンダ'],['ぶどう','ブドウ'],['ぞう','ゾウ'],['ぼうし','ボウシ'],['ぴあの','ピアノ'],['だるま','ダルマ'],['ごりら','ゴリラ'],['ばなな','バナナ'],['ぷりん','プリン']]}
+ {id:'sample-kana',name:'カタカナ練習',questions:[['あさ','アサ'],['いぬ','イヌ'],['うみ','ウミ'],['えき','エキ'],['おに','オニ'],['かさ','カサ'],['くるま','クルマ'],['さかな','サカナ'],['すいか','スイカ'],['ねこ','ネコ']]},
+ {id:'sample-math',name:'たし算',questions:[['3＋5','8'],['7＋2','9'],['4＋4','8'],['6＋3','9'],['2＋5','7'],['8＋1','9'],['5＋5','10'],['9＋2','11'],['6＋6','12'],['7＋4','11']]}
 ];
 let tests=loadTests(), editingId=null, currentSet=null, quizQuestions=[], quizIndex=0, lastSetId=null;
 const $=id=>document.getElementById(id);
@@ -123,7 +123,7 @@ function renderHome(){
 }
 function newRow(q='',a=''){
  const div=document.createElement('div');div.className='question-row';
- div.innerHTML=`<input aria-label="問題（ひらがな）" placeholder="問題（例：ねこ）" value="${esc(q)}"><input aria-label="答え（カタカナ）" placeholder="答え（例：ネコ）" value="${esc(a)}"><button class="danger" type="button">削除</button>`;
+ div.innerHTML=`<input aria-label="問題" placeholder="問題（例：3＋5）" value="${esc(q)}"><input aria-label="答え" placeholder="答え（例：8）" value="${esc(a)}"><button class="danger" type="button">削除</button>`;
  div.querySelector('button').onclick=()=>{div.remove();updateCount()};
  $('questionEditor').appendChild(div);updateCount();
 }
