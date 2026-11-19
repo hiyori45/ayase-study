@@ -46,11 +46,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </style>
 </head>
 <body>
-<header><h1>あやせスタディ</h1><button class="secondary" id="homeBtn">てすといちらん</button></header>
+<header><h1>あやせスタディ</h1><button class="secondary" id="homeBtn">テスト一覧</button></header>
 <main>
 <section id="home">
   <div class="panel">
-    <div class="row between"><h2>テストを選ぶ</h2><button id="newTestBtn">＋ あたらしいてすと</button></div>
+    <div class="row between"><h2>テストを選ぶ</h2><button id="newTestBtn">＋ 新しいテスト</button></div>
     <p class="muted">テストを選ぶと、登録した問題からランダムに10問出題します。</p>
     <div id="testList" class="stack"></div>
   </div>
@@ -63,8 +63,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     <div><label for="testName">テスト名</label><input id="testName" maxlength="40" placeholder="例：たし算、カタカナ、九九"></div>
     <div class="row between"><h3>問題と答え</h3><span class="muted" id="questionCount"></span></div>
     <div id="questionEditor" class="stack"></div>
-    <button class="secondary" id="addQuestionBtn">＋ もんだいをついか</button>
-    <div class="row"><button id="saveTestBtn">ほぞんする</button><button class="secondary" id="cancelEditBtn">やめる</button></div>
+    <button class="secondary" id="addQuestionBtn">＋ 問題を追加</button>
+    <div class="row"><button id="saveTestBtn">保存する</button><button class="secondary" id="cancelEditBtn">キャンセル</button></div>
   </div>
 </section>
 
@@ -95,7 +95,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     <h2>テスト終了！</h2>
     <p>10問おつかれさまでした。</p>
     <button id="againBtn">もういちどやる</button>
-    <button class="secondary" id="finishHomeBtn">てすといちらんへ</button>
+    <button class="secondary" id="finishHomeBtn">テスト一覧へ</button>
   </div>
 </section>
 </main>
@@ -117,7 +117,7 @@ function renderHome(){
  if(!tests.length){$('testList').innerHTML='<p class="muted">まだテストがありません。「新しいテスト」から作成してください。</p>';return}
  tests.forEach(t=>{
   const card=document.createElement('div');card.className='test-card';
-  card.innerHTML=`<div><strong>${esc(t.name)}</strong><span class="muted">${t.questions.length}問登録 · 10問ランダム出題</span></div><div class="actions"><button data-start="${esc(t.id)}">はじめる</button><button class="secondary" data-edit="${esc(t.id)}">へんしゅう</button><button class="danger" data-delete="${esc(t.id)}">けす</button></div>`;
+  card.innerHTML=`<div><strong>${esc(t.name)}</strong><span class="muted">${t.questions.length}問登録 · 10問ランダム出題</span></div><div class="actions"><button data-start="${esc(t.id)}">はじめる</button><button class="secondary" data-edit="${esc(t.id)}">編集</button><button class="danger" data-delete="${esc(t.id)}">削除</button></div>`;
   $('testList').appendChild(card);
  });
 }
