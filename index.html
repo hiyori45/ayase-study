@@ -46,11 +46,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </style>
 </head>
 <body>
-<header><h1>あやせスタディ</h1><button class="secondary" id="homeBtn">テスト一覧</button></header>
+<header><h1>あやせスタディ</h1><button class="secondary" id="homeBtn">てすといちらん</button></header>
 <main>
 <section id="home">
   <div class="panel">
-    <div class="row between"><h2>テストを選ぶ</h2><button id="newTestBtn">＋ 新しいテスト</button></div>
+    <div class="row between"><h2>テストを選ぶ</h2><button id="newTestBtn">＋ あたらしいてすと</button></div>
     <p class="muted">テストを選ぶと、登録した問題からランダムに10問出題します。</p>
     <div id="testList" class="stack"></div>
   </div>
@@ -63,8 +63,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     <div><label for="testName">テスト名</label><input id="testName" maxlength="40" placeholder="例：たし算、カタカナ、九九"></div>
     <div class="row between"><h3>問題と答え</h3><span class="muted" id="questionCount"></span></div>
     <div id="questionEditor" class="stack"></div>
-    <button class="secondary" id="addQuestionBtn">＋ 問題を追加</button>
-    <div class="row"><button id="saveTestBtn">保存する</button><button class="secondary" id="cancelEditBtn">キャンセル</button></div>
+    <button class="secondary" id="addQuestionBtn">＋ もんだいをついか</button>
+    <div class="row"><button id="saveTestBtn">ほぞんする</button><button class="secondary" id="cancelEditBtn">やめる</button></div>
   </div>
 </section>
 
@@ -76,15 +76,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
     <div id="prompt" class="prompt"></div>
     <canvas id="writing"></canvas>
     <div class="row between" style="margin-top:10px">
-      <button class="secondary" id="clearBtn">消す</button>
-      <button class="secondary" id="showAnswerBtn">答えを見る</button>
+      <button class="secondary" id="clearBtn">けす</button>
+      <button class="secondary" id="showAnswerBtn">こたえをみる</button>
     </div>
     <div id="answerArea" class="hidden">
       <div class="muted" style="text-align:center;margin-top:16px">答え</div>
       <div id="answerText" class="answer"></div>
     </div>
     <div class="row between" style="margin-top:16px">
-      <button class="secondary" id="quitQuizBtn">終了</button>
+      <button class="secondary" id="quitQuizBtn">おわる</button>
       <button id="nextBtn">次の問題</button>
     </div>
   </div>
@@ -94,8 +94,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
   <div class="panel stack" style="text-align:center">
     <h2>テスト終了！</h2>
     <p>10問おつかれさまでした。</p>
-    <button id="againBtn">もう一度挑戦</button>
-    <button class="secondary" id="finishHomeBtn">テスト一覧へ</button>
+    <button id="againBtn">もういちどやる</button>
+    <button class="secondary" id="finishHomeBtn">てすといちらんへ</button>
   </div>
 </section>
 </main>
@@ -117,7 +117,7 @@ function renderHome(){
  if(!tests.length){$('testList').innerHTML='<p class="muted">まだテストがありません。「新しいテスト」から作成してください。</p>';return}
  tests.forEach(t=>{
   const card=document.createElement('div');card.className='test-card';
-  card.innerHTML=`<div><strong>${esc(t.name)}</strong><span class="muted">${t.questions.length}問登録 · 10問ランダム出題</span></div><div class="actions"><button data-start="${esc(t.id)}">開始</button><button class="secondary" data-edit="${esc(t.id)}">編集</button><button class="danger" data-delete="${esc(t.id)}">削除</button></div>`;
+  card.innerHTML=`<div><strong>${esc(t.name)}</strong><span class="muted">${t.questions.length}問登録 · 10問ランダム出題</span></div><div class="actions"><button data-start="${esc(t.id)}">はじめる</button><button class="secondary" data-edit="${esc(t.id)}">へんしゅう</button><button class="danger" data-delete="${esc(t.id)}">けす</button></div>`;
   $('testList').appendChild(card);
  });
 }
@@ -146,7 +146,7 @@ function startQuiz(id){
  lastSetId=id;quizQuestions=shuffle(currentSet.questions).slice(0,10);quizIndex=0;show('quiz');requestAnimationFrame(()=>{resizeCanvas();drawQuestion()});
 }
 function drawQuestion(){
- const q=quizQuestions[quizIndex];$('quizTitle').textContent=currentSet.name;$('quizCount').textContent=(quizIndex+1)+' / 10問';$('progressBar').style.width=((quizIndex)/10*100)+'%';$('prompt').textContent=q[0];$('answerText').textContent=q[1];$('answerArea').classList.add('hidden');$('nextBtn').textContent=quizIndex===9?'終了':'次の問題';clearCanvas();
+ const q=quizQuestions[quizIndex];$('quizTitle').textContent=currentSet.name;$('quizCount').textContent=(quizIndex+1)+' / 10問';$('progressBar').style.width=((quizIndex)/10*100)+'%';$('prompt').textContent=q[0];$('answerText').textContent=q[1];$('answerArea').classList.add('hidden');$('nextBtn').textContent=quizIndex===9?'おわる':'つぎのもんだい';clearCanvas();
 }
 function finishQuiz(){show('finish')}
 const canvas=$('writing'),ctx=canvas.getContext('2d');let drawing=false,hasDrawn=false;
