@@ -105,11 +105,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const KEY='ayase-study-tests-v1';
 const sample=[
  {id:'sample-kana',name:'カタカナ練習',questions:[['あさ','アサ'],['いぬ','イヌ'],['うみ','ウミ'],['えき','エキ'],['おに','オニ'],['かさ','カサ'],['くるま','クルマ'],['さかな','サカナ'],['すいか','スイカ'],['ねこ','ネコ']]},
- {id:'sample-math',name:'たし算',questions:[['3＋5','8'],['7＋2','9'],['4＋4','8'],['6＋3','9'],['2＋5','7'],['8＋1','9'],['5＋5','10'],['9＋2','11'],['6＋6','12'],['7＋4','11']]}
+ {id:'sample-math',name:'たし算',questions:[['3＋5','8'],['7＋2','9'],['4＋4','8'],['6＋3','9'],['2＋5','7'],['8＋1','9'],['5＋5','10'],['9＋2','11'],['6＋6','12'],['7＋4','11']]},
+ {id:'sample-katakana-words',name:'カタカナことば',questions:[['めろん','メロン'],['きゃべつ','キャベツ'],['こーひー','コーヒー'],['ばなな','バナナ'],['とまと','トマト'],['れもん','レモン'],['ぱん','パン'],['けーき','ケーキ'],['すーぷ','スープ'],['らいおん','ライオン'],['ぱんだ','パンダ'],['てれび','テレビ'],['ぼーる','ボール'],['すいか','スイカ'],['ちーず','チーズ']]}
 ];
 let tests=loadTests(), editingId=null, currentSet=null, quizQuestions=[], quizIndex=0, lastSetId=null;
 const $=id=>document.getElementById(id);
-function loadTests(){try{const v=JSON.parse(localStorage.getItem(KEY));return Array.isArray(v)?v:sample.map(x=>structuredClone(x))}catch(e){return sample.map(x=>structuredClone(x))}}
+function loadTests(){try{const v=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(v)){const saved=[...v];sample.forEach(x=>{if(!saved.some(t=>t.id===x.id))saved.push(structuredClone(x))});return saved}return sample.map(x=>structuredClone(x))}catch(e){return sample.map(x=>structuredClone(x))}}
 function persist(){localStorage.setItem(KEY,JSON.stringify(tests))}
 function show(which){['home','editor','quiz','finish'].forEach(x=>$(x).classList.toggle('hidden',x!==which));$('homeBtn').classList.toggle('hidden',which==='home')}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
